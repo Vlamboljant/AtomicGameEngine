@@ -1,8 +1,23 @@
 //
-// Copyright (c) 2014-2015, THUNDERBEAST GAMES LLC All rights reserved
-// LICENSE: Atomic Game Engine Editor and Tools EULA
-// Please see LICENSE_ATOMIC_EDITOR_AND_TOOLS.md in repository root for
-// license information: https://github.com/AtomicGameEngine/AtomicGameEngine
+// Copyright (c) 2014-2016 THUNDERBEAST GAMES LLC
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
 //
 
 import strings = require("../../EditorStrings");
@@ -32,6 +47,16 @@ class MainFrameMenu extends Atomic.ScriptObject {
 
             if (refid == "edit play") {
                 EditorUI.getShortcuts().invokePlayOrStopPlayer();
+                return true;
+            }
+
+            if (refid == "edit pause") {
+                EditorUI.getShortcuts().invokePauseOrResumePlayer();
+                return true;
+            }
+
+            if (refid == "edit step") {
+                EditorUI.getShortcuts().invokeStepPausedPlayer();
                 return true;
             }
 
@@ -248,6 +273,10 @@ class MainFrameMenu extends Atomic.ScriptObject {
             } else if (refid == "help chat") {
                 Atomic.fileSystem.systemOpen("https://gitter.im/AtomicGameEngine/AtomicGameEngine/");
                 return true;
+            }
+            else if (refid == "help getting started") {
+                Atomic.fileSystem.systemOpen("http://atomicgameengine.com/learn/");
+                return true;
             } else if (refid == "help github") {
                 Atomic.fileSystem.systemOpen("https://github.com/AtomicGameEngine/AtomicGameEngine/");
                 return true;
@@ -287,6 +316,8 @@ var editItems = {
     "Format Code": ["edit format code", StringID.ShortcutBeautify],
     "-5": null,
     "Play": ["edit play", StringID.ShortcutPlay],
+    "Pause/Resume": ["edit pause", StringID.ShortcutPause],
+    "Step": ["edit step", StringID.ShortcutStep],
     "Debug (C# Project)": ["edit play debug", StringID.ShortcutPlayDebug],
     "-6": null,
     "Snap Settings": ["edit snap settings"]
@@ -338,14 +369,12 @@ var fileItems = {
 
 var helpItems = {
 
-    "Check for Updates": "check update",
+    "Getting Started": "help getting started",
     "API Documentation": ["help api"],
     "-1": null,
     "Atomic Chat": ["help chat"],
     "Atomic Forums": ["help forums"],
     "-2": null,
     "Atomic Game Engine on GitHub": ["help github"],
-    "About Atomic Editor": "about atomic editor",
-    "-3": null,
-    "Manage License": "manage license"
+    "About Atomic Editor": "about atomic editor"
 };
